@@ -20,6 +20,7 @@ massive(CONNECTION_STRING)
 app.use(bodyParser.json());
 
 app.get('/api/inventory', controller.getAll);
+app.get('/api/product/:id', controller.getOne)
 app.post('/api/product', controller.create);
 app.put('/api/inventory/:id', controller.edit);
 app.delete('/api/inventory/:id', controller.delete);

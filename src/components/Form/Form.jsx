@@ -1,29 +1,37 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class Form extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       image_url: '',
       product_name: '',
       price: '',
-      currentProductId: null
+      currentProductId: this.props.match.params.id
     }
   }
   
-  componentDidUpdate(prevProps, prevState) {
-    console.log("function running?");
-    if(this.props.currentProductId === null) {
-      return;
-    }
-    if(prevState.currentProductId !== this.props.currentProductId) {
-      console.log('component did update!');
-      this.setState({
-        currentProductId: this.props.currentProductId
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log("function running?");
+  //   if(this.props.currentProductId === null) {
+  //     return;
+  //   }
+  //   if(prevState.currentProductId !== this.props.match.params.id) {
+  //     console.log('component did update!');
+  //     this.setState({
+  //       currentProductId: 
+  //     })
+  //   }
+  // }
+
+  getSingleProduct = () => {
+    axios.get('/api/product')
+      .then(res => {
+        console.log(res.data);
       })
-    }
   }
 
   handleImageChange = (value) => {
@@ -67,7 +75,6 @@ class Form extends Component {
   editProduct = (id) => {
     axios.put(`/api/inventory/${id}`, { image_url: this.state.image_url, product_name: this.state.product_name, price: this.state.price})
       .then(res => {
-        this.props.getInventory();
         this.setState({
           image_url: '',
           product_name: '',
@@ -78,7 +85,7 @@ class Form extends Component {
   }
 
   render() {
-    // console.log('current product state in form', this.props.currentProductId)
+    console.log(this.props.match.params)
     return(
       <div className="form">
         <img src="https://via.placeholder.com/300" alt="placeholder"/>
@@ -99,9 +106,9 @@ class Form extends Component {
           type="text" 
           placeholder="price" 
           onChange={ (e) => this.handlePriceChange(e.target.value) } value={ this.state.price }/>
-        <button 
-          onClick={ () => this.cancel() }>Cancel</button>
-        <button onClick={ () => this.editProduct(this.state.currentProductId) }>Save Changes</button> 
+        <Link to="/"><button 
+          onClick={ () => this.cancel() }>Cancel</button></Link>
+        <Link to="/"><button onClick={ () => this.editProduct(this.state.currentProductId) }>Save Changes</button></Link>
         <button onClick={ () => this.createRequest() }>Add New Inventory</button>
       </div>
     )

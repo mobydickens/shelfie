@@ -12,7 +12,7 @@ function Product(props) {
           <p>{props.item.name}</p>
           <p>{props.item.price}</p>
           <button onClick={ () => props.deleteFn(props.item.id) }>Delete</button>
-          <Link><button>Edit</button></Link>
+          <Link to={`/edit/${props.item.id}`}><button>Edit</button></Link>
         </div>
       </div>
     </div>

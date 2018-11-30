@@ -9,6 +9,19 @@ module.exports = {
         res.sendStatus(500);
       })
   },
+
+  getOne: (req, res) => {
+    const dbInstance = req.app.get('db');
+    const { id } = req.params
+    dbInstance.get_one( id )
+      .then(product => {
+        res.status(200).send(product);
+      }).catch(error => {
+        console.log('error in getAll', error);
+        res.sendStatus(500);
+      })
+  },
+
   create: (req, res) => {
     const dbInstance = req.app.get('db');
     const { product_name, price, image_url } = req.body;

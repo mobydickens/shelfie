@@ -9,21 +9,17 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       inventory: [],
-      // currentProduct: 0
     }
     //binding inventory function
     this.getInventory = this.getInventory.bind(this);
-    // this.setSelectedProduct = this.setSelectedProduct.bind(this);
   }
 
   componentDidMount() {
-    // console.log('component did mount running')
     this.getInventory();
   }
 
   getInventory = () => {
     axios.get('/api/inventory').then(res => {
-      // console.log(res.data, 'in axios get')
       this.setState({
         inventory: res.data
       })
