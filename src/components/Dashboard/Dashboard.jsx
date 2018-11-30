@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Product from '../Product/Product.jsx';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 class Dashboard extends Component {
 
@@ -32,14 +32,6 @@ class Dashboard extends Component {
         this.props.getInventory();
       })
   }
-
-  //this is used in my PUT
-  // setSelectedProduct = (id) => {
-  //   this.setState({
-  //     currentProduct: id
-  //   })
-  // }
-
 
   render() {
     let inventoryList = this.state.inventory.map((item, i) => {

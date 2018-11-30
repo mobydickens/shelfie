@@ -14,24 +14,28 @@ class Form extends Component {
     }
   }
   
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log("function running?");
-  //   if(this.props.currentProductId === null) {
-  //     return;
-  //   }
-  //   if(prevState.currentProductId !== this.props.match.params.id) {
-  //     console.log('component did update!');
-  //     this.setState({
-  //       currentProductId: 
-  //     })
-  //   }
-  // }
-
-  getSingleProduct = () => {
-    axios.get('/api/product')
-      .then(res => {
-        console.log(res.data);
+  componentDidUpdate(prevProps) {
+    if(prevProps.match.params.id !== this.props.match.params.id) {
+      console.log('component did update!');
+      this.setState({
+        image_url: '',
+        product_name: '',
+        price: ''
       })
+    }
+  }
+
+  componentDidMount() {
+    this.getSingleProduct = () => {
+      axios.get(`/api/product/${this.props.match.params.id}`)
+        .then(res => {
+          this.setState({
+            image_url: res.data.image_url,
+            product_name: res.data.name,
+            price: res.data.price
+          })
+        })
+    }
   }
 
   handleImageChange = (value) => {
@@ -65,7 +69,6 @@ class Form extends Component {
     // console.log("function running?")
     axios.post('/api/product', this.state)
       .then(res => {
-        this.props.getInventory();
         this.cancel();
       }).catch(error => {
         console.log('error in createRequest');
@@ -85,7 +88,6 @@ class Form extends Component {
   }
 
   render() {
-    console.log(this.props.match.params)
     return(
       <div className="form">
         <img src="https://via.placeholder.com/300" alt="placeholder"/>
@@ -109,7 +111,7 @@ class Form extends Component {
         <Link to="/"><button 
           onClick={ () => this.cancel() }>Cancel</button></Link>
         <Link to="/"><button onClick={ () => this.editProduct(this.state.currentProductId) }>Save Changes</button></Link>
-        <button onClick={ () => this.createRequest() }>Add New Inventory</button>
+        <Link to="/"><button onClick={ () => this.createRequest() }>Add New Inventory</button></Link>
       </div>
     )
   }
