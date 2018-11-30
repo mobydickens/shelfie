@@ -1,7 +1,6 @@
 import React from 'react';
 
 function Product(props) {
-  console.log("product props", props)
   let products = props.inventory.map((item, i) => {
     return(
       <div key={i}>

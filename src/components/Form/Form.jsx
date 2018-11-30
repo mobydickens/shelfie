@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Form extends Component {
 
@@ -28,13 +29,25 @@ class Form extends Component {
       price: value
     })
   }
-  
+
   cancel = () => {
     this.setState({
       image_url: '',
       product_name: '',
       price: ''
     })
+  }
+
+  createRequest = () => {
+    console.log("function running?")
+    axios.post('/api/product', this.state)
+      .then(res => {
+        console.log("create request data", res.data);
+        this.props.getInventory();
+        this.cancel();
+      }).catch(error => {
+        console.log('error in createRequest', error);
+      })
   }
 
   render() {
@@ -45,7 +58,7 @@ class Form extends Component {
         <input type="text" placeholder="product name" onChange={ (e) => this.handleProductChange(e.target.value) } value={ this.state.product_name }/>
         <input type="text" placeholder="price" onChange={ (e) => this.handlePriceChange(e.target.value) } value={ this.state.price }/>
         <button onClick={ () => this.cancel() }>Cancel</button>
-        <button>Add to Inventory</button>
+        <button onClick={ () => this.createRequest() }>Add to Inventory</button>
       </div>
     )
   }
