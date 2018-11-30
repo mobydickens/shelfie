@@ -26,7 +26,6 @@ class Dashboard extends Component {
 
     return(
       <div className="dashboard">
-        <div>Dashboard</div>
         {inventoryList}
       </div>
     )

@@ -9,19 +9,19 @@ class Form extends Component {
       image_url: '',
       product_name: '',
       price: '',
-      currentProductId: ''
+      currentProductId: null
     }
   }
   
-  componentDidUpdate(oldProps) {
+  componentDidUpdate(prevProps, prevState) {
     console.log("function running?");
-    if(this.props.currentProduct === null) {
+    if(this.props.currentProductId === null) {
       return;
     }
-    if(oldProps.product_name !== this.props.currentProduct.product_name) {
+    if(prevState.currentProductId !== this.props.currentProductId) {
       console.log('component did update!');
       this.setState({
-        currentProductId: this.props.currentProduct
+        currentProductId: this.props.currentProductId
       })
     }
   }
@@ -49,7 +49,7 @@ class Form extends Component {
       image_url: '',
       product_name: '',
       price: '',
-      currentProductId: 12
+      currentProductId: null
     })
   }
 
@@ -68,11 +68,17 @@ class Form extends Component {
     axios.put(`/api/inventory/${id}`, { image_url: this.state.image_url, product_name: this.state.product_name, price: this.state.price})
       .then(res => {
         this.props.getInventory();
+        this.setState({
+          image_url: '',
+          product_name: '',
+          price: '',
+          currentProductId: null
+        })
       })
   }
 
   render() {
-    console.log(this.props)
+    // console.log('current product state in form', this.props.currentProductId)
     return(
       <div className="form">
         <img src="https://via.placeholder.com/300" alt="placeholder"/>
@@ -95,7 +101,7 @@ class Form extends Component {
           onChange={ (e) => this.handlePriceChange(e.target.value) } value={ this.state.price }/>
         <button 
           onClick={ () => this.cancel() }>Cancel</button>
-        <button onClick={ () => this.editProduct() }>Save Changes</button> 
+        <button onClick={ () => this.editProduct(this.state.currentProductId) }>Save Changes</button> 
         <button onClick={ () => this.createRequest() }>Add New Inventory</button>
       </div>
     )

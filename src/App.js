@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
     this.state = {
       inventory: [],
-      currentProduct: null
+      currentProduct: 0
     }
     //binding inventory function
     this.getInventory = this.getInventory.bind(this);
@@ -33,10 +33,10 @@ class App extends Component {
     })
   }
 
-  setSelectedProduct = (product) => {
+  setSelectedProduct = (id) => {
     // console.log('selected product', product)
     this.setState({
-      currentProduct: product
+      currentProduct: id
     })
   }
 
@@ -52,7 +52,7 @@ class App extends Component {
           setSelectedProductFn={ this.setSelectedProduct } />
         <Form 
           getInventory={ this.getInventory }
-          currentProduct={ this.state.currentProduct }/>
+          currentProductId={ this.state.currentProduct }/>
         </div>
       </div>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 
 function Product(props) {
 
-  console.log("props in product", props.item);
+  console.log("props in product", props.item.id);
   return(
     <div className="product-box">
       <div className="product-inner-all">
@@ -11,7 +11,7 @@ function Product(props) {
           <p>{props.item.name}</p>
           <p>{props.item.price}</p>
           <button onClick={ () => props.deleteFn(props.item.id) }>Delete</button>
-          <button onClick={ () => props.setSelectedProductFn(props.item) }>Edit</button>
+          <button onClick={ () => props.setSelectedProductFn(props.item.id) }>Edit</button>
         </div>
       </div>
     </div>
