@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const massive = require('massive');
 const port = 4000;
 const { CONNECTION_STRING } = process.env;
+const controller = require('./controller.js');
 
 const app = express();
 
@@ -17,3 +18,5 @@ massive(CONNECTION_STRING)
   })
 
 app.use(bodyParser.json());
+
+app.get('/api/inventory', controller.getAll);
