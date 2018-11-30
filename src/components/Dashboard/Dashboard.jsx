@@ -28,8 +28,9 @@ class Dashboard extends Component {
 
   deleteProduct = (id) => {
     axios.delete(`/api/inventory/${id}`)
-      .then(res => {
-        this.props.getInventory();
+      .then( () => {
+        this.getInventory();
+        console.log("deleted")
       })
   }
 
@@ -55,12 +56,3 @@ class Dashboard extends Component {
 }
 
 export default Dashboard;
-
-{/* <Dashboard 
-inventory={ this.state.inventory } 
-getInventory={ this.getInventory }
-setSelectedProductFn={ this.setSelectedProduct } />
-<Form 
-getInventory={ this.getInventory }
-currentProductId={ this.state.currentProduct }/>
-{routes} */}

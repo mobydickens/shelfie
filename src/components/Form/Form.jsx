@@ -13,10 +13,10 @@ class Form extends Component {
       currentProductId: this.props.match.params.id
     }
   }
-  
+
+  //clears inputs when navigating from edit to add URL. 
   componentDidUpdate(prevProps) {
     if(prevProps.match.params.id !== this.props.match.params.id) {
-      console.log('component did update!');
       this.setState({
         image_url: '',
         product_name: '',
@@ -64,9 +64,8 @@ class Form extends Component {
       currentProductId: null
     })
   }
-
+  //My POST request
   createRequest = () => {
-    // console.log("function running?")
     axios.post('/api/product', this.state)
       .then(res => {
         this.cancel();
@@ -74,15 +73,14 @@ class Form extends Component {
         console.log('error in createRequest');
       })
   }
-  //this won't be clicked until the state has been updated with all of our inputs
+
   editProduct = (id) => {
     axios.put(`/api/inventory/${id}`, { image_url: this.state.image_url, product_name: this.state.product_name, price: this.state.price})
       .then(res => {
         this.setState({
           image_url: '',
           product_name: '',
-          price: '',
-          currentProductId: null
+          price: ''
         })
       })
   }
@@ -91,20 +89,23 @@ class Form extends Component {
     return(
       <div className="form">
         <img src="https://via.placeholder.com/300" alt="placeholder"/>
+        <label for="image">Image URL:</label>
         <input 
-          title="Image URL:" 
+          id="image"
           type="text" 
           placeholder="image url" 
           onChange={ (e) => this.handleImageChange(e.target.value) } 
           value={ this.state.image_url }/>
+        <label for="product">Product Name:</label>
         <input 
-          title="Product Name:" 
+          id="product"
           type="text" 
           placeholder="product name" 
           onChange={ (e) => this.handleProductChange(e.target.value) } 
           value={ this.state.product_name }/>
+        <label for="price">Price: </label>
         <input 
-          title="Price:"
+          id="price"
           type="text" 
           placeholder="price" 
           onChange={ (e) => this.handlePriceChange(e.target.value) } value={ this.state.price }/>
