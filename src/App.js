@@ -9,35 +9,49 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inventory: []
+      inventory: [],
+      currentProduct: []
     }
     //binding inventory function
     this.getInventory = this.getInventory.bind(this);
+    this.setSelectedProduct = this.setSelectedProduct.bind(this);
   }
 
   componentDidMount() {
-    console.log('component did mount running')
+    // console.log('component did mount running')
     this.getInventory();
   }
 
   getInventory = () => {
-    console.log("get inventory running")
+    // console.log("get inventory running")
     axios.get('/api/inventory').then(res => {
-      console.log(res.data, 'in axios get')
+      // console.log(res.data, 'in axios get')
       this.setState({
         inventory: res.data
       })
     })
   }
 
+  setSelectedProduct = (product) => {
+    // console.log('selected product', product)
+    this.setState({
+      currentProduct: product
+    })
+  }
+
   render() {
     return (
-      <div className="App">
+      <div>
        <Header />
-       <Dashboard 
-        inventory={ this.state.inventory } 
-        getInventory={ this.getInventory } />
-       <Form getInventory={ this.getInventory }/>
+       <div className="container">
+        <Dashboard 
+          inventory={ this.state.inventory } 
+          getInventory={ this.getInventory }
+          setSelectedProductFn={ this.setSelectedProduct } />
+        <Form 
+          getInventory={ this.getInventory }
+          currentProduct={ this.state.currentProduct }/>
+        </div>
       </div>
     );
   }

@@ -8,7 +8,20 @@ class Form extends Component {
     this.state = {
       image_url: '',
       product_name: '',
-      price: ''
+      price: '',
+      currentProductId: null
+    }
+  }
+
+  componentDidUpdate(oldProps) {
+    console.log("function running?")
+    if(oldProps.currentProductId !== this.props.currentProduct.id) {
+      this.setState({
+        image_url: this.props.image_url,
+        product_name: this.props.product_name,
+        price: this.props.price,
+        currentProductId: this.props.currentProduct.id
+      })
     }
   }
 
@@ -34,7 +47,8 @@ class Form extends Component {
     this.setState({
       image_url: '',
       product_name: '',
-      price: ''
+      price: '',
+      currentProductId: null
     })
   }
 
@@ -51,13 +65,13 @@ class Form extends Component {
 
   render() {
     return(
-      <div>
-        <div>Form</div>
+      <div className="form">
+        <img src="https://via.placeholder.com/300" alt="placeholder"/>
         <input type="text" placeholder="image url" onChange={ (e) => this.handleImageChange(e.target.value) } value={ this.state.image_url }/>
         <input type="text" placeholder="product name" onChange={ (e) => this.handleProductChange(e.target.value) } value={ this.state.product_name }/>
         <input type="text" placeholder="price" onChange={ (e) => this.handlePriceChange(e.target.value) } value={ this.state.price }/>
         <button onClick={ () => this.cancel() }>Cancel</button>
-        <button onClick={ () => this.createRequest() }>Add to Inventory</button>
+        <button onClick={ () => this.createRequest() }>{this.state.currentProductId !== null ? 'Save Changes' : 'Add to Inventory'}</button>
       </div>
     )
   }

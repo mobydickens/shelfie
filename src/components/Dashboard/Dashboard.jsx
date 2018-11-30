@@ -18,13 +18,14 @@ class Dashboard extends Component {
         <div key={i}>
           <Product 
             item={ item }
-            deleteFn={ this.deleteProduct }/>
+            deleteFn={ this.deleteProduct }
+            setSelectedProductFn={ this.props.setSelectedProductFn }/>
         </div>
       )
     })
 
     return(
-      <div>
+      <div className="dashboard">
         <div>Dashboard</div>
         {inventoryList}
       </div>

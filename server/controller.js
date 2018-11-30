@@ -15,8 +15,25 @@ module.exports = {
     dbInstance.create_product( [product_name, price, image_url] )
       .then( () => {
         res.sendStatus(200);
+      }).catch(error => {
+        console.log('error in create', error);
+        res.sendStatus(500);
       })
   },
+
+  edit: (req, res) => {
+    const dbInstance = req.app.get('db');
+    const { id } = req.params;
+    const { product_name, price, image_url } = req.body;
+    dbInstance.edit_product( [product_name, price, image_url, id] )
+      .then( () => {
+        res.sendStatus(200);
+      }).catch(error => {
+        console.log('error in edit', error);
+        res.sendStatus(500);
+      })
+  },
+
   delete: (req, res) => {
     const dbInstance = req.app.get('db');
     const { id } = req.params;
