@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Product(props) {
 
@@ -11,7 +12,7 @@ function Product(props) {
           <p>{props.item.name}</p>
           <p>{props.item.price}</p>
           <button onClick={ () => props.deleteFn(props.item.id) }>Delete</button>
-          <button onClick={ () => props.setSelectedProductFn(props.item.id) }>Edit</button>
+          <Link><button>Edit</button></Link>
         </div>
       </div>
     </div>
