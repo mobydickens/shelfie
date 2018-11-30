@@ -88,22 +88,22 @@ class Form extends Component {
   render() {
     return(
       <div className="form">
-        <img src="https://via.placeholder.com/300" alt="placeholder"/>
-        <label for="image">Image URL:</label>
+        <img src={this.state.url !== '' ? this.state.image_url : 'http://www.independentmediators.co.uk/wp-content/uploads/2016/02/placeholder-image.jpg' } alt="placeholder"/>
+        <label htmlFor="image">Image URL:</label>
         <input 
           id="image"
           type="text" 
           placeholder="image url" 
           onChange={ (e) => this.handleImageChange(e.target.value) } 
           value={ this.state.image_url }/>
-        <label for="product">Product Name:</label>
+        <label htmlFor="product">Product Name:</label>
         <input 
           id="product"
           type="text" 
           placeholder="product name" 
           onChange={ (e) => this.handleProductChange(e.target.value) } 
           value={ this.state.product_name }/>
-        <label for="price">Price: </label>
+        <label htmlFor="price">Price: </label>
         <input 
           id="price"
           type="text" 
