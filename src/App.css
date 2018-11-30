@@ -45,3 +45,6 @@ img {
   height:160px;
   width: auto;
 }
+input {
+  margin: 10px;
+}

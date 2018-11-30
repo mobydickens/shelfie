@@ -9,18 +9,19 @@ class Form extends Component {
       image_url: '',
       product_name: '',
       price: '',
-      currentProductId: null
+      currentProductId: ''
     }
   }
-
+  
   componentDidUpdate(oldProps) {
-    console.log("function running?")
-    if(oldProps.currentProductId !== this.props.currentProduct.id) {
+    console.log("function running?");
+    if(this.props.currentProduct === null) {
+      return;
+    }
+    if(oldProps.product_name !== this.props.currentProduct.product_name) {
+      console.log('component did update!');
       this.setState({
-        image_url: this.props.image_url,
-        product_name: this.props.product_name,
-        price: this.props.price,
-        currentProductId: this.props.currentProduct.id
+        currentProductId: this.props.currentProduct
       })
     }
   }
@@ -48,30 +49,54 @@ class Form extends Component {
       image_url: '',
       product_name: '',
       price: '',
-      currentProductId: null
+      currentProductId: 12
     })
   }
 
   createRequest = () => {
-    console.log("function running?")
+    // console.log("function running?")
     axios.post('/api/product', this.state)
       .then(res => {
         this.props.getInventory();
         this.cancel();
       }).catch(error => {
-        console.log('error in createRequest', error);
+        console.log('error in createRequest');
+      })
+  }
+  //this won't be clicked until the state has been updated with all of our inputs
+  editProduct = (id) => {
+    axios.put(`/api/inventory/${id}`, { image_url: this.state.image_url, product_name: this.state.product_name, price: this.state.price})
+      .then(res => {
+        this.props.getInventory();
       })
   }
 
   render() {
+    console.log(this.props)
     return(
       <div className="form">
         <img src="https://via.placeholder.com/300" alt="placeholder"/>
-        <input type="text" placeholder="image url" onChange={ (e) => this.handleImageChange(e.target.value) } value={ this.state.image_url }/>
-        <input type="text" placeholder="product name" onChange={ (e) => this.handleProductChange(e.target.value) } value={ this.state.product_name }/>
-        <input type="text" placeholder="price" onChange={ (e) => this.handlePriceChange(e.target.value) } value={ this.state.price }/>
-        <button onClick={ () => this.cancel() }>Cancel</button>
-        <button onClick={ () => this.createRequest() }>{this.state.currentProductId !== null ? 'Save Changes' : 'Add to Inventory'}</button>
+        <input 
+          title="Image URL:" 
+          type="text" 
+          placeholder="image url" 
+          onChange={ (e) => this.handleImageChange(e.target.value) } 
+          value={ this.state.image_url }/>
+        <input 
+          title="Product Name:" 
+          type="text" 
+          placeholder="product name" 
+          onChange={ (e) => this.handleProductChange(e.target.value) } 
+          value={ this.state.product_name }/>
+        <input 
+          title="Price:"
+          type="text" 
+          placeholder="price" 
+          onChange={ (e) => this.handlePriceChange(e.target.value) } value={ this.state.price }/>
+        <button 
+          onClick={ () => this.cancel() }>Cancel</button>
+        <button onClick={ () => this.editProduct() }>Save Changes</button> 
+        <button onClick={ () => this.createRequest() }>Add New Inventory</button>
       </div>
     )
   }

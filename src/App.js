@@ -4,13 +4,14 @@ import Dashboard from './components/Dashboard/Dashboard.jsx';
 import Form from './components/Form/Form.jsx';
 import Header from './components/Header/Header.jsx';
 import axios from 'axios';
+// import { HashRouter, Switch, Route } from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       inventory: [],
-      currentProduct: []
+      currentProduct: null
     }
     //binding inventory function
     this.getInventory = this.getInventory.bind(this);
@@ -40,6 +41,7 @@ class App extends Component {
   }
 
   render() {
+    console.log("current product", this.state.currentProduct)
     return (
       <div>
        <Header />
