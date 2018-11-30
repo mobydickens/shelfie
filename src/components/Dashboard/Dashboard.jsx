@@ -41,7 +41,6 @@ class Dashboard extends Component {
           <Product 
             item={ item }
             deleteFn={ this.deleteProduct }
-            // setSelectedProductFn={ this.props.setSelectedProductFn }
           />
         </div>
       )

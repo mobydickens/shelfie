@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 function Product(props) {
 
-  console.log("props in product", props.item.id);
   return(
     <div className="product-box">
       <div className="product-inner-all">

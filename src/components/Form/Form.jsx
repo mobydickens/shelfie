@@ -109,10 +109,10 @@ class Form extends Component {
           type="text" 
           placeholder="price" 
           onChange={ (e) => this.handlePriceChange(e.target.value) } value={ this.state.price }/>
+
+        {this.props.match.params.id ?  <Link to="/"><button onClick={ () => this.editProduct(this.state.currentProductId) }>Save Changes</button></Link> : <Link to="/"><button onClick={ () => this.createRequest() }>Add New Inventory</button></Link>}
         <Link to="/"><button 
           onClick={ () => this.cancel() }>Cancel</button></Link>
-        <Link to="/"><button onClick={ () => this.editProduct(this.state.currentProductId) }>Save Changes</button></Link>
-        <Link to="/"><button onClick={ () => this.createRequest() }>Add New Inventory</button></Link>
       </div>
     )
   }
