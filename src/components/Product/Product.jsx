@@ -1,19 +1,15 @@
 import React from 'react';
 
 function Product(props) {
-  let products = props.inventory.map((item, i) => {
-    return(
-      <div key={i}>
-        <p>{item.name}</p>
-        <p>{item.price}</p>
-        <img src="https://via.placeholder.com/300" alt="product"/>
-      </div>
-    )
-  })
+
+  console.log("props in product", props.item);
   return(
     <div>
       <div>Product</div>
-      {products}
+      <p>{props.item.name}</p>
+      <p>{props.item.price}</p>
+      <img src={ props.item.image_url ? props.item.image_url : "https://via.placeholder.com/300"} alt="product"/>
+      <button onClick={ () => props.deleteFn(props.item.id) }>Delete</button>
     </div>
   )
 }

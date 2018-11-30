@@ -16,5 +16,17 @@ module.exports = {
       .then( () => {
         res.sendStatus(200);
       })
+  },
+  delete: (req, res) => {
+    const dbInstance = req.app.get('db');
+    const { id } = req.params;
+    console.log("delete in server", id)
+    dbInstance.delete_product( Number(id) )
+      .then( () => {
+        res.sendStatus(200);
+      }).catch(error => {
+        console.log('error in delete', error);
+        res.sendStatus(500);
+      })
   }
 }

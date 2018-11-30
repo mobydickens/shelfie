@@ -42,7 +42,6 @@ class Form extends Component {
     console.log("function running?")
     axios.post('/api/product', this.state)
       .then(res => {
-        console.log("create request data", res.data);
         this.props.getInventory();
         this.cancel();
       }).catch(error => {

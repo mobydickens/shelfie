@@ -16,12 +16,14 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log('component did mount running')
     this.getInventory();
   }
 
   getInventory = () => {
+    console.log("get inventory running")
     axios.get('/api/inventory').then(res => {
-      console.log(res.data)
+      console.log(res.data, 'in axios get')
       this.setState({
         inventory: res.data
       })
@@ -32,7 +34,9 @@ class App extends Component {
     return (
       <div className="App">
        <Header />
-       <Dashboard inventory={ this.state.inventory }/>
+       <Dashboard 
+        inventory={ this.state.inventory } 
+        getInventory={ this.getInventory } />
        <Form getInventory={ this.getInventory }/>
       </div>
     );

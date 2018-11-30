@@ -21,3 +21,4 @@ app.use(bodyParser.json());
 
 app.get('/api/inventory', controller.getAll);
 app.post('/api/product', controller.create);
+app.delete('/api/inventory/:id', controller.delete);
