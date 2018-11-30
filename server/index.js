@@ -20,3 +20,4 @@ massive(CONNECTION_STRING)
 app.use(bodyParser.json());
 
 app.get('/api/inventory', controller.getAll);
+app.post('/api/product', controller.create);

@@ -8,5 +8,13 @@ module.exports = {
         console.log('error in getAll', error);
         res.sendStatus(500);
       })
+  },
+  create: (req, res) => {
+    const dbInstance = req.app.get('db');
+    const { name, price, image_url } = req.body;
+    dbInstance.create_product( [name, price, image_url] )
+      .then( () => {
+        res.sendStatus(200);
+      })
   }
 }
