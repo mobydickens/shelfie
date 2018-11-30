@@ -84,6 +84,13 @@ button {
   border-radius: 5px;
   padding: 5px 12px; 
 }
+.inventory-buttons {
+  background-color: darkred;
+  color: white;
+  border: none;
+  margin: 4px;
+  font-size: 12px;
+}
 /* .product-inner-text {
 } */
 img {

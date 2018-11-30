@@ -18,6 +18,12 @@ class Dashboard extends Component {
     this.getInventory();
   }
 
+  componentWillUpdate(prevProps) {
+    if(prevProps.data !== this.props.match.params) {
+      this.getInventory();
+    }
+  }
+
   getInventory = () => {
     axios.get('/api/inventory').then(res => {
       this.setState({
