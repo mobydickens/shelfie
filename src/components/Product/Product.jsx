@@ -7,7 +7,7 @@ function Product(props) {
       <div key={i}>
         <p>{item.name}</p>
         <p>{item.price}</p>
-        <img src="https://via.placeholder.com/300" alt="product image"/>
+        <img src="https://via.placeholder.com/300" alt="product"/>
       </div>
     )
   })
